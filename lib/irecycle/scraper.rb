@@ -1,5 +1,4 @@
 
-
 class Scraper
 
 	BASE_URL = "https://search.earth911.com/"
