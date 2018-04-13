@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/irecycle'
+
+
+Irecycle::CLI.new.call
+
+
+
