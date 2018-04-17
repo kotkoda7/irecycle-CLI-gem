@@ -1,13 +1,15 @@
+require 'pry'
+
 class Irecycle::CLI
 
 	def call
 		puts "\nHello! Welcome to the Irecycle gem." 
 		puts "\nI'm going to tell you where you can recycle near your location."
 		get_zip
-		get_category
 		show_list(get_zip)
 		final_words
 	end
+
 
 	 def get_zip
 		puts "\nPlease enter your zip code:"
@@ -19,12 +21,12 @@ class Irecycle::CLI
 	    elsif user_zip == "exit"
 	    	final_words
 	     else 
-	     	show_list #should also ask for category
+	     	get_category(user_zip) #should also ask for category
 	    end
     end
 
 
-    def get_category
+    def get_category(zip_code)
 		puts "\nPlease select the material you want to recycle:"  
 
 		puts "1. Metal"
@@ -42,34 +44,44 @@ class Irecycle::CLI
 		@material = gets.chomp.to_i
 
 		if @material < 10
-			find_category
+			find_category(@material)
 		
 		elsif material == "exit"
 			@final_words
 
 		else 
-			find_category
+			find_category(@material)
 		end
 	end
 
-	def find_category
+	def find_category(material)
 
-    material = nil
+      #if material.to_i > 0
+      #binding.pry
 
-    while material != "exit"
-      final_words
+  	if material == 1
+  		
+  		Irecycle::Scraper.scrape.new
+  		#binding.pry
+  		
+		#center_pages = scraper(@zip_code, @material)
 
-      material = gets.strip.downcase
+  		
+		puts "Here's the list of recycling centers for metal:"
+  		puts "#{doc.name}"
+		
+=begin
+		doc = 
+		Irecycle::Scraper.scrape(zip_code, material)
+        #doc = @center[material.to_i-1]
+        puts "#{doc.name} - #{doc.material} - #{doc.address1}"
 
-      if material.to_i > 0
-    	#doc = Irecycle::Scraper.scrape(zip_code, category)
-        doc = @deals[material.to_i-1]
-        puts "#{doc.name} - #{doc.price} - #{doc.availability}"
+=end
       else
         puts "Not sure what you want."
       end
     end
-  end
+
 
 
 =begin

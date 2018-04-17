@@ -3,8 +3,8 @@ class Scraper
 
 	BASE_URL = "https://search.earth911.com/"
 
-	def self.scrape(zip_code, category)
-		html = Nokogiri::HTML(open("#{BASE_URL}?what=#{category}&where=#{zip_code}&list_filter=all&max_distance=25&family_id=&latitude=&longitude=&country=&province=&city=&sponsor="))
+	def self.scrape(zip_code, material)
+		html = Nokogiri::HTML(open("#{BASE_URL}?what=#{material}&where=#{zip_code}&list_filter=all&max_distance=25&family_id=&latitude=&longitude=&country=&province=&city=&sponsor="))
 		slice = html.search('.result-list li')
 		slice.each do |doc| 
 			center = Irecycle::Center.new
