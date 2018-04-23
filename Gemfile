@@ -6,5 +6,7 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 #gemspec
 
 gem 'pry'
+gem 'nokogiri'
+gem 'open-uri'
 gem 'rspec'
 gem 'rake'

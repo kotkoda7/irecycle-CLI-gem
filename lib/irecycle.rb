@@ -1,12 +1,16 @@
+
+require 'open-uri'
 require 'nokogiri'
-require "open-uri"
-require 'mechanize'
 require 'pry'
 
 require_relative './irecycle/version'
-require_relative './irecycle/scraper'
-require_relative './irecycle/center'
+require_relative './irecycle/centers'
 require_relative './irecycle/cli'
+
+#require_relative './irecycle/scraper'
+
+
+
 
 
 
