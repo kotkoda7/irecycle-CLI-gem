@@ -1,6 +1,5 @@
 
 require 'pry'
-
 class Irecycle::CLI
 
 
@@ -25,11 +24,11 @@ class Irecycle::CLI
 	      	get_zip
 	     else 
 	     	get_category(user_zip)
-	     	#binding.pry
 	    end
     end
 
     def get_category(zipcode)
+
 		puts "\nPlease select the material you want to recycle:"  
 
 		puts "1. Metal"
@@ -51,28 +50,54 @@ class Irecycle::CLI
 		
 		elsif 
 			material < 10
-			list_centers(@zipcode, @material)
+			list_centers(zipcode, material)
 
 		else 
-			list_centers(@zipcode, @material)
+			list_centers(zipcode, material)
 		end
 	end
 
 
 	def list_centers(zipcode, material)
-		puts "Here's the list of centers you requested:"
-		@centers = Irecycle::Centers.array
 
-		@centers.each.with_index(1) do |center, i|
-			puts "#{i}. #{center.name}"
-			#binding.pry
+		@centers = Irecycle::Scraper.scrape(zipcode, material)
+			
+			@centers.each.with_index(1) do |center, i|
+      			puts "#{i}. Center Name: #{center.name}"
+      			puts "Center Address: #{center.address1}, #{center.address2}, #{center.address3},"
+      			puts "Phone: #{center.tel}"
+      			puts "Distance to your zipcode: #{center.dist}"
+      			puts "Some of the other materials accepted at this location: #{center.material}"
+		end
+		
+		#list_pagetwo(zipcode, material)
+	end 
+
+=begin
+	def list_pagetwo(zipcode, material)
+
+		puts "Do you want to see another list of 10 recycling centers? (yes/no)"
+		answer = gets.chomp
+		
+		if answer == "yes"
+		
+			@centers = Irecycle::Scraper.scrape_pagetwo(zipcode, material)
+			@centers.each.with_index(11) do |center, i|
+      			puts "#{i}. Center Name: #{center.name}"
+      			puts "Center Address: #{center.address1}, #{center.address2}, #{center.address3},"
+      			puts "Phone: #{center.tel}"
+      			puts "Distance to your zipcode: #{center.dist}"
+      			puts "Some of the other materials accepted at this location: #{center.material}"
+   			end
+		else
+			final_words
 		end
 	end
+=end
 
 
   	def final_words
 		puts "\nThank you for using the 'Irecycle' CLI GEM. Please remember to first REFUSE, then REUSE!"
 		puts "Only RECYCLE if the first 2 options are exhausted."
 	end
-
 end

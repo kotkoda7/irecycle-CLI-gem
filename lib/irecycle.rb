@@ -7,8 +7,6 @@ require_relative './irecycle/version'
 require_relative './irecycle/centers'
 require_relative './irecycle/cli'
 
-#require_relative './irecycle/scraper'
-
 
 
 
