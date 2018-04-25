@@ -29,6 +29,8 @@ class Irecycle::CLI
 
     def get_category(zipcode)
 
+    	#Irecycle::Centers.clear
+
 		puts "\nPlease select the material you want to recycle:"  
 
 		puts "1. Metal"
@@ -48,12 +50,12 @@ class Irecycle::CLI
 		if material == "exit"
 			final_words
 		
-		elsif 
-			material < 10
+		elsif material < 10
 			list_center_names(zipcode, material)
 
 		else 
-			list_center_names(zipcode, material)
+			puts "You entered an invalid choice! Please try again: "
+			get_category(zipcode)
 		end
 	end
 
@@ -73,17 +75,28 @@ class Irecycle::CLI
 		puts "Please choose a recycling center for more information: (enter number)"
 
 		choice = nil 
+		
 		while choice != "exit"
 			puts "\n[1..#{Irecycle::Centers.all.length}] Please choose a recycling center for more information (enter number) or enter new zip code (say zip)"
     		choice = gets.chomp
-    			if choice.to_i > 0 && choice.to_i < Irecycle::Centers.all.length-1[choice.to_i-1]) 
-
+    		if choice.to_i > 0 && choice.to_i < Irecycle::Centers.all.length+1
+				@centers = Irecycle::Scraper.scrape(zipcode, material)
 				puts "Center Address: #{center.address1}, #{center.address2}, #{center.address3},"
 		      	puts "Phone: #{center.tel}"
 		      	puts "Distance to your zipcode: #{center.dist}"
 		      	puts "Some of the other materials accepted at this location: #{center.material}"
+		      elsif choice == "zip"
+		      	get_zip
+		      end
+		end
+end
 
-    end
+    def final_words
+		puts "\nThank you for using the 'Irecycle' CLI GEM. Please remember to first REFUSE, then REUSE!"
+		puts "Only RECYCLE if the first 2 options are exhausted."
+	end
+end
+
 =begin
 	def list_pagetwo(zipcode, material)
 
@@ -107,8 +120,4 @@ class Irecycle::CLI
 =end
 
 
-  	def final_words
-		puts "\nThank you for using the 'Irecycle' CLI GEM. Please remember to first REFUSE, then REUSE!"
-		puts "Only RECYCLE if the first 2 options are exhausted."
-	end
-end
+  	
