@@ -50,29 +50,40 @@ class Irecycle::CLI
 		
 		elsif 
 			material < 10
-			list_centers(zipcode, material)
+			list_center_names(zipcode, material)
 
 		else 
-			list_centers(zipcode, material)
+			list_center_names(zipcode, material)
 		end
 	end
 
 
-	def list_centers(zipcode, material)
+	def list_center_names(zipcode, material)
 
 		@centers = Irecycle::Scraper.scrape(zipcode, material)
 			
 			@centers.each.with_index(1) do |center, i|
       			puts "#{i}. Center Name: #{center.name}"
-      			puts "Center Address: #{center.address1}, #{center.address2}, #{center.address3},"
-      			puts "Phone: #{center.tel}"
-      			puts "Distance to your zipcode: #{center.dist}"
-      			puts "Some of the other materials accepted at this location: #{center.material}"
 		end
-		
 		#list_pagetwo(zipcode, material)
 	end 
 
+	def details
+
+		puts "Please choose a recycling center for more information: (enter number)"
+
+		choice = nil 
+		while choice != "exit"
+			puts "\n[1..#{Irecycle::Centers.all.length}] Please choose a recycling center for more information (enter number) or enter new zip code (say zip)"
+    		choice = gets.chomp
+    			if choice.to_i > 0 && choice.to_i < Irecycle::Centers.all.length-1[choice.to_i-1]) 
+
+				puts "Center Address: #{center.address1}, #{center.address2}, #{center.address3},"
+		      	puts "Phone: #{center.tel}"
+		      	puts "Distance to your zipcode: #{center.dist}"
+		      	puts "Some of the other materials accepted at this location: #{center.material}"
+
+    end
 =begin
 	def list_pagetwo(zipcode, material)
 
