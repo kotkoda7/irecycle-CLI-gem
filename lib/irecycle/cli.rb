@@ -8,6 +8,7 @@ class Irecycle::CLI
 		puts "\nI'm going to tell you where you can recycle near your location."
 		get_zip
 		details
+		list_pagetwo(zipcode, material, page=2)
 		final_words
 	end
 
@@ -44,18 +45,17 @@ class Irecycle::CLI
 		puts "8. Food waste"
 		puts "9. Hazardous materials"
 
-		puts "Please enter a number between 1 and 9: "
+		puts "Please enter a number 1-9 or 'zip' to get a list for another zipcode: "
 		
 		material = gets.chomp.to_i
 
-		if material == "exit"
-			final_words
-		
-		elsif material < 10
+		if 	material < 10
 			list_center_names(zipcode, material)
 
+		elsif 	material == "zip"
+			get_zip
 		else 
-			puts "You entered an invalid choice! Please try again: "
+			puts "You entered an invalid choice. Please try again: "
 			get_category(zipcode)
 		end
 	end
@@ -68,15 +68,17 @@ class Irecycle::CLI
 			@centers.each.with_index(1) do |center, i|
       			puts "#{i}. Center Name: #{center.name}"
 		end
-		#list_pagetwo(zipcode, material)
-	end 
+
+	end
+
 
 def details
 
 	num = Irecycle::Center.all.size
-    puts "\nWhich center you want to look into further? (1- #{num}):"
+    puts "\nWhich center you want to get more information about? (1- #{num}):"
    
    	choice = gets.chomp.to_i
+
     if (1..num).include?(choice)
       	center = Irecycle::Center.all[choice-1]
 		puts "Center Name: #{center.name}"
@@ -85,45 +87,43 @@ def details
 		puts "Distance to your zipcode: #{center.dist}"
 		puts "Some of the other materials accepted at this location: #{center.material}"
 		
-		puts "\nDo you want to look at another clinic?(Y/N)"
-		choice2 = gets.chomp.upcase
-		if choice2 == "Y" 
-			detail
-		else	
+		puts "\nDo you want to look at another clinic? (yes/no or 'zip' for get centers for a new zipcode)"
+		choice2 = gets.chomp
+
+		if choice2 == "yes" 
+			details
+		elsif choice2 == "no"
+			list_pagetwo(@zipcode, @material, @page=2)
+		else
+			choice2 == "zip"
 			get_zip
 		end
-end
-end
-
-
-
-    def final_words
-		puts "\nThank you for using the 'Irecycle' CLI GEM. Please remember to first REFUSE, then REUSE!"
-		puts "Only RECYCLE if the first 2 options are exhausted."
 	end
 end
 
-=begin
-	def list_pagetwo(zipcode, material)
+def list_pagetwo(zipcode, material, page=2)
 
-		puts "Do you want to see another list of 10 recycling centers? (yes/no)"
+		puts "Do you want to see another page of recycling centers? (yes/no)"
 		answer = gets.chomp
 		
 		if answer == "yes"
 		
-			@centers = Irecycle::Scraper.scrape_pagetwo(zipcode, material)
+			@centers = Irecycle::Scraper.scrape_pagetwo(zipcode, material, page=2)
 			@centers.each.with_index(11) do |center, i|
       			puts "#{i}. Center Name: #{center.name}"
-      			puts "Center Address: #{center.address1}, #{center.address2}, #{center.address3},"
-      			puts "Phone: #{center.tel}"
-      			puts "Distance to your zipcode: #{center.dist}"
-      			puts "Some of the other materials accepted at this location: #{center.material}"
    			end
 		else
 			final_words
 		end
 	end
-=end
+
+
+    def final_words
+		puts "\nThank you for using the 'Irecycle' CLI GEM. Please remember to first REFUSE, then REUSE! Only RECYCLE if the first 2 options are exhausted."
+	end
+end
+
+	
 
 
   	
