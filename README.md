@@ -1,24 +1,25 @@
 # Irecycle
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/irecycle`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This Ruby Gem provides a CLI to supply the user a list of recycling centers for a certain zipcode and material using 
+the Earth911 website.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-```ruby
-gem 'irecycle'
-```
+## Installation
 
-And then execute:
+    $ gem install irecycle
+
+## Usage
+
+Type 
 
     $ bundle install
 
 Or install it yourself as:
 
-    $ gem install irecycle
+    $ irecycle
 
 ## Usage
 
@@ -32,7 +33,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/irecycle. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/kotkoda7/irecycle-CLI-gem. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## Code of Conduct
 

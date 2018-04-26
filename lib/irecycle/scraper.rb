@@ -12,13 +12,16 @@ class Irecycle::Scraper
 		
 		results.each do |ctr| 
 			center = Irecycle::Center.new
-			center.name = ctr.search(".title a").text.strip
-			center.material = ctr.search(".result-materials").text.strip.gsub("Materials accepted:", "")
+			center.name = ctr.css(".title a").text.strip
+			center.material = ctr.css(".result-materials").text.strip.gsub("Materials accepted:", "")
 			center.address1 = ctr.css(".address1").text.strip
 			center.address2 = ctr.css(".address2").text.strip
 			center.address3 = ctr.css(".address3").text.strip
 			center.dist = ctr.css(".distance").text.strip
 			center.tel = ctr.css(".phone").text.strip
+			center.restrictions = ctr.css(".restrictions").text.strip.gsub(/\s+/, " ")
+
+			
 		end
 		 Irecycle::Center.all
 	end

@@ -1,7 +1,7 @@
 
 class Irecycle::Center
 
-	attr_accessor :name, :address1, :address2, :address3, :tel, :dist, :material
+	attr_accessor :name, :address1, :address2, :address3, :tel, :dist, :material, :restrictions
 
 @@all = []
 

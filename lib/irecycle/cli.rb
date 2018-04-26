@@ -93,6 +93,7 @@ def details
 		puts "Center Address: #{center.address1}, #{center.address2}, #{center.address3}"
 		puts "Phone: #{center.tel}"
 		puts "Some of the other materials accepted at this location: #{center.material}"
+		puts "#{center.restrictions}"
 		get_another
 		
 	elsif choice == "exit"
