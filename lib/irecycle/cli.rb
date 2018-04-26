@@ -7,6 +7,7 @@ class Irecycle::CLI
 		puts "\nHello! Welcome to the Irecycle gem." 
 		puts "\nI'm going to tell you where you can recycle near your location."
 		get_zip
+		details
 		final_words
 	end
 
@@ -70,26 +71,31 @@ class Irecycle::CLI
 		#list_pagetwo(zipcode, material)
 	end 
 
-	def details
+def details
 
-		puts "Please choose a recycling center for more information: (enter number)"
-
-		choice = nil 
+	num = Irecycle::Center.all.size
+    puts "\nWhich center you want to look into further? (1- #{num}):"
+   
+   	choice = gets.chomp.to_i
+    if (1..num).include?(choice)
+      	center = Irecycle::Center.all[choice-1]
+		puts "Center Name: #{center.name}"
+		puts "Center Address: #{center.address1}, #{center.address2}, #{center.address3}"
+		puts "Phone: #{center.tel}"
+		puts "Distance to your zipcode: #{center.dist}"
+		puts "Some of the other materials accepted at this location: #{center.material}"
 		
-		while choice != "exit"
-			puts "\n[1..#{Irecycle::Centers.all.length}] Please choose a recycling center for more information (enter number) or enter new zip code (say zip)"
-    		choice = gets.chomp
-    		if choice.to_i > 0 && choice.to_i < Irecycle::Centers.all.length+1
-				@centers = Irecycle::Scraper.scrape(zipcode, material)
-				puts "Center Address: #{center.address1}, #{center.address2}, #{center.address3},"
-		      	puts "Phone: #{center.tel}"
-		      	puts "Distance to your zipcode: #{center.dist}"
-		      	puts "Some of the other materials accepted at this location: #{center.material}"
-		      elsif choice == "zip"
-		      	get_zip
-		      end
+		puts "\nDo you want to look at another clinic?(Y/N)"
+		choice2 = gets.chomp.upcase
+		if choice2 == "Y" 
+			detail
+		else	
+			get_zip
 		end
 end
+end
+
+
 
     def final_words
 		puts "\nThank you for using the 'Irecycle' CLI GEM. Please remember to first REFUSE, then REUSE!"
