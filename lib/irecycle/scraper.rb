@@ -6,7 +6,7 @@ class Irecycle::Scraper
 
 	def self.scrape(zipcode, material)
 		base_url = "https://search.earth911.com/?"
-		doc = Nokogiri::HTML(open("#{base_url}what=#{material}&where=#{zipcode}&list_filter=all&max_distance=25&family_id=&latitude=&longitude=&country=&province=&city=&sponsor="))
+		doc = Nokogiri::HTML(open("#{base_url}what=#{material}&where=#{zipcode}&list_filter=all&max_distance=50&family_id=&latitude=&longitude=&country=&province=&city=&sponsor="))
 
 		results = doc.search('.result-list li')
 		
@@ -24,12 +24,12 @@ class Irecycle::Scraper
 	end
 end
 
-
-
-
+=begin
 	def self.scrape_pagetwo(zipcode, material, page=2)
 		base_url = "https://search.earth911.com/?"
 		doc = Nokogiri::HTML(open("#{base_url}what=#{material}&where=#{zipcode}&list_filter=all&max_distance=25&family_id=&latitude=&longitude=&country=&province=&city=&sponsor=&list_filter=all&page=#{page}"))
+
+https://search.earth911.com/what=metal&where=98226&list_filter=all&max_distance=25&family_id=&latitude=&longitude=&country=&province=&city=&sponsor=&list_filter=all&page=2
 
 		results = doc.search('.result-list li')
 		
@@ -45,7 +45,7 @@ end
 		end
 		 Irecycle::Center.all
 	end
-
+=end
 
 
 
