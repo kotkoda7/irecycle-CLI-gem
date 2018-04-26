@@ -14,7 +14,7 @@ class Irecycle::CLI
 
 
 	def get_zip
-		puts "\nPlease enter your zip code:"
+		puts "\nPlease enter your zip code or enter 'exit':"
 	    user_zip = gets.chomp.to_s
 	    
 	    if user_zip == "exit"
@@ -35,7 +35,7 @@ class Irecycle::CLI
 
 		puts "\nPlease enter the material you want to recycle or 'zip' to get a list for another zipcode:"  
 
-		puts "/nSuggestions:"
+		puts "\nSuggestions:"
 		puts "Metal"
 		puts "Paper"
 		puts "Plastic"
@@ -44,6 +44,7 @@ class Irecycle::CLI
 		puts "Household"
 		puts "Garden"
 		puts "Batteries"
+		puts "Cellphones"
 		puts "Paint"
 		puts "Hazardous"
 		puts "Construction"
@@ -63,48 +64,63 @@ class Irecycle::CLI
 
 	def list_center_names(zipcode, material)
 
-		@centers = Irecycle::Scraper.scrape(zipcode, material)
+		centers = Irecycle::Scraper.scrape(zipcode, material)
 			
-			@centers.each.with_index(1) do |center, i|
+			centers.each.with_index(1) do |center, i|
       			puts "#{i}. Center Name: #{center.name}"
-		end
+      		end
 	end
-
 
 def details
 
 	num = Irecycle::Center.all.size
-    puts "\nWhich center you want to get more information on? (1- #{num}):"
+
+	if num == 0
+		puts "No recycling center exist in this zip or category. Please try again:"
+		get_zip
+
+	else
+		puts "\nWhich center you want to get more information on? (1-#{num}):"
    
    	choice = gets.chomp.to_i
-   	puts "You entered number #{choice}"
+   end
 
     if (1..num).include?(choice)
       	center = Irecycle::Center.all[choice-1]
+      	puts "You entered ##{choice}"
 		puts "Center Name: #{center.name}"
 		puts "Distance to your zipcode: #{center.dist}"
 		puts "Center Address: #{center.address1}, #{center.address2}, #{center.address3}"
 		puts "Phone: #{center.tel}"
 		puts "Some of the other materials accepted at this location: #{center.material}"
+		get_another
 		
-		puts "\nDo you want to look at another clinic? (yes/no or 'zip' for get centers for a new zipcode)"
-		choice2 = gets.chomp
+	elsif choice == "exit"
+			final_words
+	else
+		puts "You entered an invalid number, please try again."
+		details
+	end
+end
+
+	def get_another
+		puts "\nDo you want to look at another clinic? Enter 'yes', 'no'/'exit' or 'new zip':"
+
+		choice2 = gets.chomp.downcase
 
 		if choice2 == "yes" 
 			details
-		elsif choice2 == "no"
+		elsif choice2 == "no" || choice2 == "exit"
 			final_words
 		else
-			choice2 == "zip"
 			get_zip
 		end
 	end
-end
 
 
 
     def final_words
-		puts "\nThank you for using the 'Irecycle' CLI GEM. Please remember to first REFUSE, then REUSE! Only RECYCLE if the first 2 options are exhausted."
+		puts "\nThank you for using the 'Irecycle' CLI GEM. Please remember to first REFUSE, then REUSE! Only RECYCLE if the first 2 options are exhausted.\n"
 	end
 end
 
