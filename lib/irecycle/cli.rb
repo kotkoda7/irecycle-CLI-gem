@@ -1,6 +1,4 @@
 
-
-
 class Irecycle::CLI
 
 
@@ -9,7 +7,7 @@ class Irecycle::CLI
 		puts "\nI'm going to tell you where you can recycle near your location."
 		get_zip
 		details
-		
+		final_words
 	end
 
 
@@ -31,7 +29,7 @@ class Irecycle::CLI
 
     def get_category(zipcode)
 
-    	#Irecycle::Centers.clear
+    	Irecycle::Center.clear
 
 		puts "\nPlease enter the material you want to recycle or 'zip' to get a list for another zipcode:"  
 
@@ -68,7 +66,8 @@ class Irecycle::CLI
 			
 			centers.each.with_index(1) do |center, i|
       			puts "#{i}. Center Name: #{center.name}"
-      		end
+      	end
+      	details
 	end
 
 def details
@@ -81,9 +80,9 @@ def details
 
 	else
 		puts "\nWhich center you want to get more information on? (1-#{num}):"
-   
-   	choice = gets.chomp.to_i
    end
+
+   choice = gets.chomp.to_i
 
     if (1..num).include?(choice)
       	center = Irecycle::Center.all[choice-1]
