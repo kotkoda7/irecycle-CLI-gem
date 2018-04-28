@@ -41,13 +41,14 @@ class Irecycle::CLI
 		puts "Glass"
 		puts "Household"
 		puts "Garden"
+		puts "Organic ﻿Food Waste"
 		puts "Batteries"
 		puts "Cellphones"
 		puts "Paint"
 		puts "Hazardous"
 		puts "Construction"
 		puts "Automotive"
-		puts "\nOr enter the material of your choice:"
+		puts "Or enter the material of your choice:"
 
 		material = gets.chomp.downcase
 
@@ -75,7 +76,7 @@ def details
 	num = Irecycle::Center.all.size
 
 	if num == 0
-		puts "No recycling center exist in this zip or category. Please try again:"
+		puts "No recycling center exists in this category or zipcode. Please try again:"
 		get_zip
 
 	else
@@ -104,7 +105,7 @@ def details
 end
 
 	def get_another
-		puts "\nDo you want to look at another clinic? Enter 'yes', 'no'/'exit' or 'new zip':"
+		puts "\nDo you want to look at another recycling center? Enter 'yes', 'no'/'exit' or 'new zip':"
 
 		choice2 = gets.chomp.downcase
 
