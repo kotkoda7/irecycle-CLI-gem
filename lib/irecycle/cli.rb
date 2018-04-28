@@ -6,8 +6,6 @@ class Irecycle::CLI
 		puts "\nHello! Welcome to the Irecycle gem." 
 		puts "\nI'm going to tell you where you can recycle near your location."
 		get_zip
-		details
-		final_words
 	end
 
 
@@ -73,19 +71,22 @@ class Irecycle::CLI
 
 def details
 
-	num = Irecycle::Center.all.size
+	@num = Irecycle::Center.all.size
 
-	if num == 0
+	if @num == 0
 		puts "No recycling center exists in this category or zipcode. Please try again:"
 		get_zip
 
-	else
-		puts "\nWhich center you want to get more information on? (1-#{num}):"
-   end
+	else 
+		puts "\nWhich center you want to get more information on? (1-#{@num}):"
+		choice
+   	end
+end
 
-   choice = gets.chomp.to_i
+def choice    
+	choice = gets.chomp.to_i
 
-    if (1..num).include?(choice)
+    if (1..@num).include?(choice)
       	center = Irecycle::Center.all[choice-1]
       	puts "You entered ##{choice}"
 		puts "Center Name: #{center.name}"
@@ -96,8 +97,6 @@ def details
 		puts "#{center.restrictions}"
 		get_another
 		
-	elsif choice == "exit"
-			final_words
 	else
 		puts "You entered an invalid number, please try again."
 		details
@@ -109,15 +108,14 @@ end
 
 		choice2 = gets.chomp.downcase
 
-		if choice2 == "yes" 
-			details
-		elsif choice2 == "no" || choice2 == "exit"
+		if choice2 == "no" || choice2 == "exit"
 			final_words
+		elsif choice2 == "yes" 
+			details
 		else
 			get_zip
 		end
 	end
-
 
 
     def final_words
