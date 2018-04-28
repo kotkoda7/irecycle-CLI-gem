@@ -5,22 +5,13 @@ require "irecycle/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "irecycle"
-  spec.version       = Irecycle::VERSION
+  spec.version       = Irecycle::0.1.0
   spec.authors       = ["kotkoda7"]
   spec.email         = ["szilvia.hosser@gmail.com"]
 
-  spec.summary       = %q{This is a gem that provides the user with recycling centers around a certain US zip}
+  spec.summary       = %q{This is a gem that provides the user with Recycling Centers of certain materials close to a certain US zip}
   # spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
-
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
-  else
-    raise "RubyGems 2.0 or newer is required to protect against " \
-      "public gem pushes."
-  end
+  spec.homepage      = "https://github.com/kotkoda7/irecycle-CLI-gem"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
@@ -35,7 +26,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry", ">= 0"
 
   spec.add_dependency "nokogiri"
-  spec.add_dependency "mechanize"
 
 
 end
