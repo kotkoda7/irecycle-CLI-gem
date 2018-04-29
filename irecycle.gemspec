@@ -10,7 +10,6 @@ Gem::Specification.new do |spec|
   spec.email         = ["szilvia.hosser@gmail.com"]
 
   spec.summary       = %q{This is a gem that provides the user with Recycling Centers of certain materials close to a certain US zip}
-  # spec.description   = %q{TODO: Write a longer description or delete this line.}
   spec.homepage      = "https://github.com/kotkoda7/irecycle-CLI-gem"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|

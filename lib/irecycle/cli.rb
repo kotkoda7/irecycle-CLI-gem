@@ -122,27 +122,3 @@ end
 		puts "\nThank you for using the 'Irecycle' CLI GEM. Please remember to first REFUSE, then REUSE! Only RECYCLE if the first 2 options are exhausted.\n"
 	end
 end
-
-=begin
-	def list_pagetwo(zipcode, material, page=2)
-
-		puts "Do you want to see another page of recycling centers? (yes/no)"
-		answer = gets.chomp
-		
-		if answer == "yes"
-		
-			@centers2 = Irecycle::Scraper.scrape_pagetwo(zipcode, material, page=2)
-
-			@centers2.each.with_index(11) do |center, i|
-      			puts "#{i}. Center Name: #{center.name}"
-   			end
-		else
-			final_words
-		end
-	end
-=end
-
-	
-
-
-  	
